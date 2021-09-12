@@ -16,9 +16,6 @@
     <color name="red">#AA0000</color>
     <color name="blue">#00ffff</color>
 
-    <color name="grey_100">#F5F5F5</color>
-    <color name="grey_300">#E0E0E0</color>
-    <color name="grey_500">#9E9E9E</color>
-    <color name="grey_700">#8A8A8A</color>
-    <color name="grey_1000">#717171</color>
+    <color name="colorPrimary">#C68B59</color>
+    <color name="colorPrimaryVariant">#865439</color>
 </resources>

@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.RockPaperScissorsBattle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/red_300</item>
-        <item name="colorPrimaryVariant">@color/brown_500</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -15,8 +15,8 @@
     </style>
 
     <style name="SplashScreenTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_screen_background</item>
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:windowBackground">@drawable/bg_splash_screen</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
     </style>
 </resources>

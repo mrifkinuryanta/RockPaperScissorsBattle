@@ -2,22 +2,13 @@ package com.dev.divig.rockpaperscissorsbattle.utils
 
 import android.content.Context
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.dev.divig.rockpaperscissorsbattle.R
+import com.dev.divig.rockpaperscissorsbattle.enum.WinnerColor
 import com.google.android.material.snackbar.Snackbar
 
 object Utils {
-    fun showToast(context: Context, msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    fun showToastLong(context: Context, msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
-    }
-
     fun showSnackBar(context: Context, view: View, msg: String) {
         snackBar(context, view, msg, R.color.black_6F)
     }
@@ -36,7 +27,18 @@ object Utils {
         snackBar.show()
     }
 
-    fun ImageView.setBackground(context: Context) {
-        background = ContextCompat.getDrawable(context, R.drawable.corners_button)
+    fun View.setBackgroundBrown(context: Context) {
+        background = ContextCompat.getDrawable(context, R.drawable.bg_corners_brown)
+    }
+
+    fun View.setBackgroundColor(context: Context, color: Int) {
+        when (color) {
+            WinnerColor.GREEN.color -> background =
+                ContextCompat.getDrawable(context, R.drawable.bg_corners_green)
+            WinnerColor.RED.color -> background =
+                ContextCompat.getDrawable(context, R.drawable.bg_corners_red)
+            WinnerColor.BLUE.color -> background =
+                ContextCompat.getDrawable(context, R.drawable.bg_corners_blue)
+        }
     }
 }
