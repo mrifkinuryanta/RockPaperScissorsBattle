@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Rock Paper Scissors Battle</string>
+    <string name="msg_reset_game">Reset Game</string>
+    <string name="msg_win">YOU WIN!</string>
+    <string name="msg_lose">YOU LOSE!</string>
+    <string name="msg_draw">DRAW!</string>
+    <string name="text_rock">Rock</string>
+    <string name="text_paper">Paper</string>
+    <string name="text_scissors">Scissors</string>
+    <string name="text_placeholder_running">Rock Paper Scissors Battle | Win or Lose | Play casually without emotion | Good Luck | I hope luck is on your side</string>
+    <string name="text_placeholder_player_one">Player 1</string>
+    <string name="text_placeholder_player_two">COM</string>
+    <string name="text_placeholder_versus">VS</string>
+    <string name="text_placeholder_score">SCORE</string>
+    <string name="text_score_default">0</string>
+    <string name="text_desc_game_background">game background</string>
 </resources>
