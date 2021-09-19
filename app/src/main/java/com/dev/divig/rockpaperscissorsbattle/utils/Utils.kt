@@ -27,7 +27,7 @@ object Utils {
         snackBar.show()
     }
 
-    fun View.setBackgroundBrown(context: Context) {
+    fun View.setBackgroundAction(context: Context) {
         background = ContextCompat.getDrawable(context, R.drawable.bg_corners_brown)
     }
 

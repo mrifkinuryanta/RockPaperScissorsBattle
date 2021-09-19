@@ -9,28 +9,32 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.dev.divig.rockpaperscissorsbattle.R
 import com.dev.divig.rockpaperscissorsbattle.databinding.ActivityGameBinding
-import com.dev.divig.rockpaperscissorsbattle.databinding.LayoutResultGameDialogBinding
-import com.dev.divig.rockpaperscissorsbattle.enum.ActionState
-import com.dev.divig.rockpaperscissorsbattle.enum.WinnerColor
-import com.dev.divig.rockpaperscissorsbattle.utils.Constant
+import com.dev.divig.rockpaperscissorsbattle.databinding.LayoutGameResultDialogBinding
+import com.dev.divig.rockpaperscissorsbattle.enum.PlayerActionState
+import com.dev.divig.rockpaperscissorsbattle.enum.PlayerPosition
+import com.dev.divig.rockpaperscissorsbattle.utils.Constants
 import com.dev.divig.rockpaperscissorsbattle.utils.Utils
-import com.dev.divig.rockpaperscissorsbattle.utils.Utils.setBackgroundBrown
+import com.dev.divig.rockpaperscissorsbattle.utils.Utils.setBackgroundAction
 import com.dev.divig.rockpaperscissorsbattle.utils.Utils.setBackgroundColor
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
-    private var scorePlayerOne: Int = Constant.ZERO
-    private var scorePlayerTwo: Int = Constant.ZERO
-    private var winnerColor: Int = Constant.ZERO
+    private val gameController = GameController()
+    private var valuePlayerOne: Int = Constants.ZERO
+    private var valuePlayerTwo: Int = Constants.ZERO
+    private var scorePlayerOne: Int = Constants.ZERO
+    private var scorePlayerTwo: Int = Constants.ZERO
+    private var winnerColor: Int = Constants.ZERO
     private var isGameFinished: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
-        setClickActionAndStartGame()
+        setClickAction()
     }
 
     private fun initView() {
@@ -39,79 +43,94 @@ class GameActivity : AppCompatActivity() {
         binding.tvRunningText.isSelected = true
     }
 
-    private fun setClickActionAndStartGame() {
+    private fun setClickAction() {
         binding.ivRockLeft.setOnClickListener {
             if (!isGameFinished) {
-                it.setBackgroundBrown(this)
-                startGame(ActionState.ROCK.value)
+                valuePlayerOne = PlayerActionState.ROCK.value
+                setPlayerChoiceBackground(valuePlayerOne, PlayerPosition.LEFT)
+                startGame()
             }
         }
         binding.ivPaperLeft.setOnClickListener {
             if (!isGameFinished) {
-                it.setBackgroundBrown(this)
-                startGame(ActionState.PAPER.value)
+                valuePlayerOne = PlayerActionState.PAPER.value
+                setPlayerChoiceBackground(valuePlayerOne, PlayerPosition.LEFT)
+                startGame()
             }
         }
         binding.ivScissorsLeft.setOnClickListener {
             if (!isGameFinished) {
-                it.setBackgroundBrown(this)
-                startGame(ActionState.SCISSORS.value)
+                valuePlayerOne = PlayerActionState.SCISSORS.value
+                setPlayerChoiceBackground(valuePlayerOne, PlayerPosition.LEFT)
+                startGame()
             }
         }
         binding.ivResetBtn.setOnClickListener {
             Utils.showSnackBar(this, binding.root, getString(R.string.msg_reset_game))
-            scorePlayerOne = Constant.ZERO
-            scorePlayerTwo = Constant.ZERO
+            scorePlayerOne = Constants.ZERO
+            scorePlayerTwo = Constants.ZERO
             setScore()
+            resetGame()
         }
     }
 
-    private fun startGame(valuePlayerOne: Int) {
-        Log.d(Constant.TAG, "First player choice: ${playerChoice(valuePlayerOne)}")
-        val valuePlayerTwo = (0..2).random()
-        Log.d(Constant.TAG, "Second player choice: ${playerChoice(valuePlayerTwo)}")
-        setPlayerTwoBackground(valuePlayerTwo)
-        val resultGame = resultGame(valuePlayerOne, valuePlayerTwo)
-        resultGameDialog(resultGame)
-        Log.d(Constant.TAG, "Result Game: $resultGame")
-        setScore()
+    private fun startGame() {
+        Log.d(Constants.TAG, "First player choice: ${getPlayerChoice(valuePlayerOne)}")
+        valuePlayerTwo = (0..2).random()
+        Log.d(Constants.TAG, "Second player choice: ${getPlayerChoice(valuePlayerTwo)}")
+        setPlayerChoiceBackground(valuePlayerTwo, PlayerPosition.RIGHT)
+        showGameResult()
         isGameFinished = true
     }
 
-    private fun playerChoice(value: Int): String {
-        return when (value) {
-            ActionState.ROCK.value -> getString(R.string.text_rock)
-            ActionState.PAPER.value -> getString(R.string.text_paper)
-            ActionState.SCISSORS.value -> getString(R.string.text_scissors)
-            else -> Constant.EMPTY_VALUE
+    private fun getPlayerChoice(value: Int): String {
+        return when (PlayerActionState.state(value)) {
+            PlayerActionState.ROCK -> getString(R.string.text_rock)
+            PlayerActionState.PAPER -> getString(R.string.text_paper)
+            PlayerActionState.SCISSORS -> getString(R.string.text_scissors)
         }
     }
 
-    private fun setPlayerTwoBackground(value: Int) {
-        when (value) {
-            ActionState.ROCK.value -> binding.ivRockRight.setBackgroundBrown(this)
-            ActionState.PAPER.value -> binding.ivPaperRight.setBackgroundBrown(this)
-            ActionState.SCISSORS.value -> binding.ivScissorsRight.setBackgroundBrown(this)
+    private fun setPlayerChoiceBackground(value: Int, playerPosition: PlayerPosition) {
+        val ivRock: ImageView
+        val ivPaper: ImageView
+        val ivScissors: ImageView
+        when (playerPosition) {
+            PlayerPosition.LEFT -> {
+                ivRock = binding.ivRockLeft
+                ivPaper = binding.ivPaperLeft
+                ivScissors = binding.ivScissorsLeft
+            }
+            PlayerPosition.RIGHT -> {
+                ivRock = binding.ivRockRight
+                ivPaper = binding.ivPaperRight
+                ivScissors = binding.ivScissorsRight
+            }
+        }
+
+        when (PlayerActionState.state(value)) {
+            PlayerActionState.ROCK -> ivRock.setBackgroundAction(this)
+            PlayerActionState.PAPER -> ivPaper.setBackgroundAction(this)
+            PlayerActionState.SCISSORS -> ivScissors.setBackgroundAction(this)
         }
     }
 
-    private fun resultGame(p1: Int, p2: Int): String {
-        return when {
-            (p1 + Constant.ONE) % Constant.THREE == p2 -> {
-                scorePlayerTwo++
-                winnerColor = WinnerColor.RED.color
-                getString(R.string.msg_lose)
-            }
-            p1 == p2 -> {
-                winnerColor = WinnerColor.BLUE.color
-                getString(R.string.msg_draw)
-            }
-            else -> {
-                scorePlayerOne++
-                winnerColor = WinnerColor.GREEN.color
-                getString(R.string.msg_win)
-            }
-        }
+    private fun showGameResult() {
+        val gameResult = gameController.getGameResult(
+            this,
+            valuePlayerOne,
+            valuePlayerTwo,
+            scorePlayerOne,
+            scorePlayerTwo
+        )
+        winnerColor = gameResult.winnerColor
+        scorePlayerOne = gameResult.scorePlayerOne
+        scorePlayerTwo = gameResult.scorePlayerTwo
+        setScore()
+
+        val resultMessage = gameResult.resultMessage
+        showGameResultDialog(resultMessage)
+        Log.d(Constants.TAG, "Result Game: $resultMessage")
     }
 
     private fun setScore() {
@@ -129,39 +148,36 @@ class GameActivity : AppCompatActivity() {
         isGameFinished = false
     }
 
-    private fun resultGameDialog(resultGame: String) {
+    private fun showGameResultDialog(resultMessage: String) {
         binding.tvPlaceholderVersus.visibility = View.INVISIBLE
-        val dialogBinding = LayoutResultGameDialogBinding.inflate(layoutInflater)
-        val resultGameDialog = Dialog(this)
-        resultGameDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        resultGameDialog.setContentView(dialogBinding.root)
-        resultGameDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        resultGameDialog.setCancelable(false)
-        resultGameDialog.setCanceledOnTouchOutside(false)
+        val dialogBinding = LayoutGameResultDialogBinding.inflate(layoutInflater)
+        val gameResultDialog = Dialog(this)
+        gameResultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        gameResultDialog.setContentView(dialogBinding.root)
+        gameResultDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        gameResultDialog.setCancelable(false)
+        gameResultDialog.setCanceledOnTouchOutside(false)
 
-        dialogBinding.tvResultGame.text = resultGame
-        dialogBinding.tvResultGame.setBackgroundColor(this, winnerColor)
-        dialogBinding.pbTimer.max = Constant.THREE
+        dialogBinding.tvGameResult.text = resultMessage
+        dialogBinding.tvGameResult.setBackgroundColor(this, winnerColor)
+        dialogBinding.pbTimer.max = Constants.THREE
 
-        object : CountDownTimer(Constant.FOUR_SECOND, Constant.ONE_SECOND) {
+        object : CountDownTimer(Constants.FOUR_SECOND, Constants.ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
-                if ((millisUntilFinished / Constant.ONE_SECOND).toInt() == Constant.THREE) resultGameDialog.show()
+                val seconds = (millisUntilFinished / Constants.ONE_SECOND).toInt()
+                if (seconds == Constants.THREE) gameResultDialog.show()
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    dialogBinding.pbTimer.setProgress(
-                        (millisUntilFinished / Constant.ONE_SECOND).toInt(),
-                        true
-                    )
+                    dialogBinding.pbTimer.setProgress(seconds, true)
                 } else {
-                    dialogBinding.pbTimer.progress =
-                        (millisUntilFinished / Constant.ONE_SECOND).toInt()
+                    dialogBinding.pbTimer.progress = seconds
                 }
-                dialogBinding.tvTimer.text = (millisUntilFinished / Constant.ONE_SECOND).toString()
+                dialogBinding.tvTimer.text = seconds.toString()
             }
 
             override fun onFinish() {
                 resetGame()
-                resultGameDialog.dismiss()
+                gameResultDialog.dismiss()
                 binding.tvPlaceholderVersus.visibility = View.VISIBLE
             }
         }.start()

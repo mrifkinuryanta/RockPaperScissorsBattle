@@ -42,7 +42,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     //other
-    implementation "io.coil-kt:coil:$coilVersion"
     implementation "com.intuit.ssp:ssp-android:$intuitVersion"
     implementation "com.intuit.sdp:sdp-android:$intuitVersion"
 

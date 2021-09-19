@@ -1,8 +1,7 @@
 package com.dev.divig.rockpaperscissorsbattle.utils
 
-object Constant {
+object Constants {
     const val TAG = "RockPaperScissorsBattle"
-    const val EMPTY_VALUE = ""
     const val ZERO = 0
     const val ONE = 1
     const val THREE = 3

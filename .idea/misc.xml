@@ -21,12 +21,13 @@
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/drawable/lose_background.xml" value="0.22870370370370371" />
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/drawable/splash_screen_background.xml" value="0.22870370370370371" />
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/drawable/win_background.xml" value="0.22870370370370371" />
-        <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/layout/activity_game.xml" value="0.21435185185185185" />
+        <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/layout/activity_game.xml" value="0.33" />
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/layout/layout_dialog_result.xml" value="0.21435185185185185" />
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/layout/layout_dialog_result_game.xml" value="0.25" />
+        <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/layout/layout_game_result_dialog.xml" value="0.2074074074074074" />
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/layout/layout_result_game_dialog.xml" value="0.25" />
-        <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22870370370370371" />
+        <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.25" />
         <entry key="..\:/PROJECT APK/BinarAcademy/Chapter4/RockPaperScissorsBattle/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.22870370370370371" />
       </map>
     </option>
@@ -36,5 +37,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.33" />
+      </ProjectState>
+    </option>
   </component>
 </project>
