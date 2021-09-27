@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    android:padding="@dimen/_7sdp">
+    app:layout_constraintGuide_percent="1"
+    tools:background="@color/bg_image_dark_alpha">
 
     <TextView
         android:id="@+id/tv_game_result"
+        style="@style/Text.Game.App"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_corners_green"
-        android:padding="@dimen/_14sdp"
-        android:textColor="@color/white"
+        android:padding="@dimen/_16sdp"
+        android:textAlignment="center"
         android:textSize="@dimen/_18ssp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +29,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_14sdp"
         android:background="@drawable/circular_shape"
         android:elevation="1dp"
         android:indeterminate="false"
@@ -40,17 +42,73 @@
 
     <TextView
         android:id="@+id/tv_timer"
+        style="@style/Text.Game.App"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/bg_progress_bar"
-        android:fontFamily="sans-serif"
         android:gravity="center"
-        android:textColor="@color/white"
         android:textSize="@dimen/_20ssp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/pb_timer"
         app:layout_constraintEnd_toEndOf="@+id/pb_timer"
         app:layout_constraintStart_toStartOf="@+id/pb_timer"
         app:layout_constraintTop_toTopOf="@+id/pb_timer"
         tools:text="2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_action_play_again"
+        style="@style/Text.Game.App"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/bg_corners_brown"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/text_placeholder_play_again"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toStartOf="@id/btn_action_main_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_game_result" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_action_main_menu"
+        style="@style/Text.Game.App"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="@drawable/bg_corners_brown"
+        android:backgroundTint="@color/red_700"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/text_placeholder_main_menu"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_action_play_again"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_action_play_again"
+        app:layout_constraintTop_toTopOf="@+id/btn_action_play_again" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/btn_action_main_menu" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_timer_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="pb_timer, tv_timer"
+        tools:visibility="gone" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_action_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="btn_action_play_again, btn_action_main_menu"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@
 
     <TextView
         android:id="@+id/tv_running_text"
+        style="@style/Text.Game.App"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/red_300"
@@ -27,9 +28,7 @@
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:text="@string/text_placeholder_running"
-        android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,12 +39,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:backgroundTint="@color/brown_500"
+        android:backgroundTint="@color/colorPrimaryVariant"
         app:cardCornerRadius="@dimen/_16sdp"
-        app:layout_constraintBottom_toTopOf="@+id/ll_action_left"
+        app:layout_constraintBottom_toTopOf="@+id/tv_placeholder_versus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_running_text">
+        app:layout_constraintTop_toBottomOf="@+id/tv_running_text"
+        app:layout_constraintVertical_bias="0.1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,6 +56,7 @@
 
             <TextView
                 android:id="@+id/tv_score_player_one"
+                style="@style/Text.Game.App"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,14 +65,13 @@
                 android:background="@drawable/bg_corners_brown"
                 android:backgroundTint="@color/red_300"
                 android:maxLines="1"
-                android:text="@string/text_score_default"
+                android:text="@string/text_placeholder_score_default"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_34ssp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_34ssp" />
 
             <TextView
                 android:id="@+id/tv_score"
+                style="@style/Text.Game.App"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -81,12 +81,11 @@
                 android:padding="@dimen/_8sdp"
                 android:text="@string/text_placeholder_score"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_24ssp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_24ssp" />
 
             <TextView
                 android:id="@+id/tv_score_player_two"
+                style="@style/Text.Game.App"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -95,17 +94,15 @@
                 android:background="@drawable/bg_corners_brown"
                 android:backgroundTint="@color/red_300"
                 android:maxLines="1"
-                android:text="@string/text_score_default"
+                android:text="@string/text_placeholder_score_default"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_34ssp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/_34ssp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/ll_action_left"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_75sdp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"
         android:orientation="vertical"
@@ -115,18 +112,19 @@
 
         <TextView
             android:id="@+id/tv_name_player_left"
-            android:layout_width="wrap_content"
+            style="@style/Text.Game.App"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_8sdp"
             android:background="@drawable/bg_corners_brown"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:padding="@dimen/_8sdp"
-            android:text="@string/text_placeholder_player_one"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_14ssp"
+            tools:text="@string/text_placeholder_name_player_one" />
 
         <ImageView
             android:id="@+id/iv_rock_left"
@@ -155,6 +153,7 @@
 
     <TextView
         android:id="@+id/tv_placeholder_versus"
+        style="@style/Text.Game.App"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_corners_brown"
@@ -163,17 +162,15 @@
         android:paddingStart="@dimen/_8sdp"
         android:paddingEnd="@dimen/_8sdp"
         android:text="@string/text_placeholder_versus"
-        android:textColor="@color/white"
         android:textSize="@dimen/_40ssp"
-        android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ll_action_right"
-        app:layout_constraintStart_toEndOf="@+id/ll_action_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_game_background" />
 
     <LinearLayout
         android:id="@+id/ll_action_right"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_75sdp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_16sdp"
         android:orientation="vertical"
@@ -183,20 +180,20 @@
 
         <TextView
             android:id="@+id/tv_name_player_right"
+            style="@style/Text.Game.App"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_8sdp"
             android:background="@drawable/bg_corners_brown"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
             android:padding="@dimen/_8sdp"
-            android:text="@string/text_placeholder_player_two"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16ssp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_14ssp"
+            tools:text="@string/text_placeholder_name_player_two" />
 
         <ImageView
             android:id="@+id/iv_rock_right"
@@ -231,11 +228,25 @@
         android:contentDescription="@string/text_scissors"
         android:padding="@dimen/_8sdp"
         android:src="@drawable/ic_reset_32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_exit_btn"
+        app:layout_constraintEnd_toStartOf="@id/iv_exit_btn"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_exit_btn" />
+
+    <ImageView
+        android:id="@+id/iv_exit_btn"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/bg_corners_brown"
+        android:contentDescription="@string/text_scissors"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/ic_exit_32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_action_right"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

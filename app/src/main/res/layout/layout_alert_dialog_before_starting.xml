@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_corners_brown"
+    android:backgroundTint="@color/orange_100"
+    android:padding="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/tv_title_before_starting"
+        style="@style/Text.Game.App"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:text="@string/text_title_before_starting"
+        android:textColor="@color/brown_500"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_desc_before_starting"
+        style="@style/Text.Game.App"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:text="@string/text_desc_before_starting"
+        android:textColor="@color/red_700"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_before_starting" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_action_cancel"
+        style="@style/Text.Game.App"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:background="@drawable/bg_corners_brown"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/text_placeholder_cancel"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toStartOf="@id/btn_action_okay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc_before_starting" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_action_okay"
+        style="@style/Text.Game.App"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:background="@drawable/bg_corners_brown"
+        android:backgroundTint="@color/red_700"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/text_placeholder_okay"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_action_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_action_cancel"
+        app:layout_constraintTop_toTopOf="@+id/btn_action_cancel" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/btn_action_okay" />
+</androidx.constraintlayout.widget.ConstraintLayout>

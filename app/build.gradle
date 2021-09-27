@@ -44,6 +44,7 @@ dependencies {
     //other
     implementation "com.intuit.ssp:ssp-android:$intuitVersion"
     implementation "com.intuit.sdp:sdp-android:$intuitVersion"
+    implementation "io.coil-kt:coil:$coilVersion"
 
     //testing
     testImplementation "junit:junit:$junitVersion"
