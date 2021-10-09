@@ -13,7 +13,8 @@
     <color name="green_AA">#00AA00</color>
     <color name="red">#AA0000</color>
     <color name="blue">#00ffff</color>
-    <color name="bg_image_dark_alpha">#D9000000</color>
+    <color name="black_alpha_85">#D9000000</color>
+    <color name="grey_300">#E0E0E0</color>
     <color name="colorPrimary">#C68B59</color>
     <color name="colorPrimaryVariant">#865439</color>
 </resources>

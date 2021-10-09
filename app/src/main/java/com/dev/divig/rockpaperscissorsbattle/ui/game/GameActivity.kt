@@ -1,6 +1,7 @@
 package com.dev.divig.rockpaperscissorsbattle.ui.game
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,11 +9,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.dev.divig.rockpaperscissorsbattle.R
+import com.dev.divig.rockpaperscissorsbattle.data.entity.ScoringEntity
 import com.dev.divig.rockpaperscissorsbattle.data.preference.GamePreference
 import com.dev.divig.rockpaperscissorsbattle.databinding.ActivityGameBinding
 import com.dev.divig.rockpaperscissorsbattle.databinding.LayoutGameResultDialogBinding
@@ -24,8 +27,6 @@ import com.dev.divig.rockpaperscissorsbattle.utils.Constants
 import com.dev.divig.rockpaperscissorsbattle.utils.Utils
 import com.dev.divig.rockpaperscissorsbattle.utils.Utils.setBackgroundAction
 import com.dev.divig.rockpaperscissorsbattle.utils.Utils.setBackgroundTextColor
-import com.dev.divig.rockpaperscissorsbattle.utils.Utils.setVisibilityGone
-import com.dev.divig.rockpaperscissorsbattle.utils.Utils.setVisibilityInvisible
 
 class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
@@ -58,11 +59,12 @@ class GameActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-            gameMode = extras.getInt(Constants.EXTRA_VALUE_MODE)
+            gameMode = extras.getInt(Constants.EXTRAS_VALUE_MODE)
         }
 
-        namePlayerOne = GamePreference(this).namePlayerOne.orEmpty()
-        namePlayerTwo = GamePreference(this).namePlayerTwo.orEmpty()
+        val gamePreference = GamePreference(this)
+        namePlayerOne = gamePreference.namePlayerOne.orEmpty()
+        namePlayerTwo = gamePreference.namePlayerTwo.orEmpty()
 
         namePlayerOne =
             if (namePlayerOne.isNotEmpty()) {
@@ -72,10 +74,9 @@ class GameActivity : AppCompatActivity() {
             }
         namePlayerTwo =
             if (gameMode == GameMode.VERSUS_PLAYER.value) {
-                if (namePlayerTwo.isNotEmpty()) {
-                    namePlayerTwo
-                } else {
-                    getString(R.string.text_placeholder_name_player_two)
+                when {
+                    namePlayerTwo.isNotEmpty() -> namePlayerTwo
+                    else -> getString(R.string.text_placeholder_name_player_two)
                 }
             } else {
                 getString(R.string.text_placeholder_name_player_com)
@@ -100,10 +101,7 @@ class GameActivity : AppCompatActivity() {
                     this,
                     getPlayerChoiceMessage(valuePlayerOne, PlayerPosition.LEFT)
                 )
-                when (GameMode.state(gameMode)) {
-                    GameMode.VERSUS_PLAYER -> setPlayerTurn(PlayerPosition.RIGHT)
-                    GameMode.VERSUS_COMPUTER -> startGame()
-                }
+                setNextTurn()
             }
         }
         binding.ivPaperLeft.setOnClickListener {
@@ -113,10 +111,7 @@ class GameActivity : AppCompatActivity() {
                     this,
                     getPlayerChoiceMessage(valuePlayerOne, PlayerPosition.LEFT)
                 )
-                when (GameMode.state(gameMode)) {
-                    GameMode.VERSUS_PLAYER -> setPlayerTurn(PlayerPosition.RIGHT)
-                    GameMode.VERSUS_COMPUTER -> startGame()
-                }
+                setNextTurn()
             }
         }
         binding.ivScissorsLeft.setOnClickListener {
@@ -126,10 +121,7 @@ class GameActivity : AppCompatActivity() {
                     this,
                     getPlayerChoiceMessage(valuePlayerOne, PlayerPosition.LEFT)
                 )
-                when (GameMode.state(gameMode)) {
-                    GameMode.VERSUS_PLAYER -> setPlayerTurn(PlayerPosition.RIGHT)
-                    GameMode.VERSUS_COMPUTER -> startGame()
-                }
+                setNextTurn()
             }
         }
         binding.ivRockRight.setOnClickListener {
@@ -163,12 +155,12 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun startGame() {
-        when (gameMode) {
-            GameMode.VERSUS_PLAYER.value -> {
+        when (GameMode.state(gameMode)) {
+            GameMode.VERSUS_PLAYER -> {
                 showActionPlayer(PlayerPosition.LEFT, true)
                 showActionPlayer(PlayerPosition.RIGHT, true)
             }
-            GameMode.VERSUS_COMPUTER.value -> {
+            GameMode.VERSUS_COMPUTER -> {
                 valuePlayerTwo = (0..2).random()
             }
         }
@@ -231,14 +223,15 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun showGameResult() {
-        val gameResult = gameController.getGameResult(
-            this,
+        val scoringEntity = ScoringEntity(
             gameMode,
             valuePlayerOne,
             valuePlayerTwo,
             scorePlayerOne,
             scorePlayerTwo
         )
+
+        val gameResult = gameController.getGameResult(this, scoringEntity)
         winnerColor = gameResult.winnerColor
         scorePlayerOne = gameResult.scorePlayerOne
         scorePlayerTwo = gameResult.scorePlayerTwo
@@ -248,8 +241,8 @@ class GameActivity : AppCompatActivity() {
         var resultMessage = gameResult.resultMessage
         if (gameMode == GameMode.VERSUS_PLAYER.value) {
             resultMessage = when (winnerPosition) {
-                PlayerPosition.LEFT -> namePlayerOne + "\n" + resultMessage
-                PlayerPosition.RIGHT -> namePlayerTwo + "\n" + resultMessage
+                PlayerPosition.LEFT -> "$namePlayerOne \n $resultMessage"
+                PlayerPosition.RIGHT -> "$namePlayerTwo \n $resultMessage"
                 else -> resultMessage
             }
         }
@@ -273,11 +266,14 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun navigateToGameMenu() {
-        val intent = Intent(this, GameMenuActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        GameMenuActivity.startActivity(this)
+    }
+
+    private fun setNextTurn() {
+        when (GameMode.state(gameMode)) {
+            GameMode.VERSUS_PLAYER -> setPlayerTurn(PlayerPosition.RIGHT)
+            GameMode.VERSUS_COMPUTER -> startGame()
         }
-        startActivity(intent)
-        finish()
     }
 
     private fun setPlayerTurn(playerPosition: PlayerPosition) {
@@ -298,16 +294,16 @@ class GameActivity : AppCompatActivity() {
     private fun showActionPlayer(playerPosition: PlayerPosition, isVisible: Boolean) {
         when (playerPosition) {
             PlayerPosition.LEFT -> {
-                binding.llActionLeft.setVisibilityGone(isVisible)
+                binding.llActionLeft.isVisible = isVisible
             }
             PlayerPosition.RIGHT -> {
-                binding.llActionRight.setVisibilityGone(isVisible)
+                binding.llActionRight.isVisible = isVisible
             }
         }
     }
 
     private fun showGameResultDialog(resultMessage: String) {
-        binding.tvPlaceholderVersus.visibility = View.INVISIBLE
+        binding.tvPlaceholderVersus.isInvisible
         val dialogBinding = LayoutGameResultDialogBinding.inflate(layoutInflater)
         val gameResultDialog = Dialog(this)
         gameResultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -323,7 +319,7 @@ class GameActivity : AppCompatActivity() {
         dialogBinding.btnActionPlayAgain.setOnClickListener {
             gameResultDialog.dismiss()
             setInitialState()
-            binding.tvPlaceholderVersus.visibility = View.VISIBLE
+            binding.tvPlaceholderVersus.isVisible
         }
 
         dialogBinding.btnActionMainMenu.setOnClickListener {
@@ -345,9 +341,20 @@ class GameActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                dialogBinding.groupTimerLayout.setVisibilityInvisible(false)
-                dialogBinding.groupActionLayout.setVisibilityInvisible(true)
+                dialogBinding.groupTimerLayout.isInvisible = true
+                dialogBinding.groupActionLayout.isInvisible = false
             }
         }.start()
+    }
+
+    companion object {
+        @JvmStatic
+        fun startActivity(context: Context?, gameMode: Int) {
+            val intent = Intent(context, GameActivity::class.java).apply {
+                putExtra(Constants.EXTRAS_VALUE_MODE, gameMode)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            }
+            context?.startActivity(intent)
+        }
     }
 }

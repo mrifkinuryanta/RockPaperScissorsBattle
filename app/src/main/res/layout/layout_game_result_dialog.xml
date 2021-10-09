@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     app:layout_constraintGuide_percent="1"
-    tools:background="@color/bg_image_dark_alpha">
+    tools:background="@color/black_alpha_85">
 
     <TextView
         android:id="@+id/tv_game_result"

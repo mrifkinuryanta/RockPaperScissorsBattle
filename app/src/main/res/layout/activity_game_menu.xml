@@ -14,18 +14,17 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg_game" />
 
-    <ImageView
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/text_desc_game_background"
-        android:src="@color/bg_image_dark_alpha" />
+        android:background="@color/black_alpha_85" />
 
     <ImageView
         android:id="@+id/iv_game_logo"
         android:layout_width="@dimen/_125sdp"
         android:layout_height="@dimen/_125sdp"
         android:contentDescription="@string/app_name"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,12 +35,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
         android:backgroundTint="@color/colorPrimaryVariant"
         app:cardCornerRadius="@dimen/_16sdp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_game_logo"
         app:layout_constraintVertical_bias="0.1">
 
@@ -53,59 +54,50 @@
             android:paddingEnd="@dimen/_16sdp">
 
             <TextView
-                style="@style/Text.Game.App"
+                style="@style/Text.Game.App.16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/_16sdp"
                 android:paddingBottom="@dimen/_16sdp"
                 android:text="@string/text_placeholder_main_menu"
                 android:textAlignment="center"
-                android:textSize="@dimen/_18ssp" />
+                android:textSize="@dimen/_16ssp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_versus_player"
-                style="@style/Text.Game.App.16"
+                style="@style/Text.Game.App.14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_corners_brown"
                 android:backgroundTint="@color/red_300"
                 android:maxLines="1"
-                android:padding="@dimen/_8sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:text="@string/text_placeholder_versus_player" />
+                android:text="@string/text_placeholder_player_vs_player" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_versus_computer"
-                style="@style/Text.Game.App.16"
+                style="@style/Text.Game.App.14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:background="@drawable/bg_corners_brown"
                 android:backgroundTint="@color/red_300"
                 android:maxLines="1"
-                android:padding="@dimen/_8sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:text="@string/text_placeholder_versus_computer" />
+                android:text="@string/text_placeholder_player_vs_computer" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_options"
-                style="@style/Text.Game.App.16"
+                style="@style/Text.Game.App.14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:background="@drawable/bg_corners_brown"
                 android:backgroundTint="@color/red_300"
                 android:maxLines="1"
-                android:padding="@dimen/_8sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
                 android:text="@string/text_placeholder_options" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_exit_game"
-                style="@style/Text.Game.App.16"
+                style="@style/Text.Game.App.14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
@@ -113,9 +105,6 @@
                 android:background="@drawable/bg_corners_brown"
                 android:backgroundTint="@color/red_300"
                 android:maxLines="1"
-                android:padding="@dimen/_8sdp"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingEnd="@dimen/_16sdp"
                 android:text="@string/text_placeholder_exit_game" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

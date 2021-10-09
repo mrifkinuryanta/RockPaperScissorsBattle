@@ -18,8 +18,8 @@
     <string name="text_placeholder_name_player_com">COM</string>
     <string name="text_placeholder_versus">VS</string>
     <string name="text_placeholder_score">SCORE</string>
-    <string name="text_placeholder_versus_player">VERSUS PLAYER</string>
-    <string name="text_placeholder_versus_computer">VERSUS COMPUTER</string>
+    <string name="text_placeholder_player_vs_player">PLAYER VS PLAYER</string>
+    <string name="text_placeholder_player_vs_computer">PLAYER VS COMPUTER</string>
     <string name="text_placeholder_play_again">PLAY AGAIN</string>
     <string name="text_placeholder_main_menu">MAIN MENU</string>
     <string name="text_placeholder_options">OPTIONS</string>
@@ -27,9 +27,14 @@
     <string name="text_placeholder_cancel">Cancel</string>
     <string name="text_placeholder_okay">OK</string>
     <string name="text_placeholder_score_default">0</string>
+    <string name="text_title_before_starting">Before starting</string>
+    <string name="text_title_landing_page_3">Before playing enter your name</string>
     <string name="text_desc_game_background">Game Background</string>
+    <string name="text_desc_before_starting">Calm down bro, before you start, do you want to enter the name of the second player?</string>
+    <string name="text_desc_landing_page_1">In this game you can play player vs player mode</string>
+    <string name="text_desc_landing_page_2">If you don\'t have friends to play with, you can play player vs computer mode</string>
     <string name="text_hint_name_player_one">First Player Name</string>
     <string name="text_hint_name_player_two">Second Player Name</string>
-    <string name="text_title_before_starting">Before starting</string>
-    <string name="text_desc_before_starting">Eitss, before starting do you want to enter the name of the second player?</string>
+    <string name="text_hint_name">Name</string>
+    <string name="text_error_field_request">Fields cannot be empty.</string>
 </resources>

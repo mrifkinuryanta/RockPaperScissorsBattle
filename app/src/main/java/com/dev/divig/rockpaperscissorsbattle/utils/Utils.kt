@@ -1,8 +1,10 @@
 package com.dev.divig.rockpaperscissorsbattle.utils
 
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -32,14 +34,6 @@ object Utils {
         snackBar.show()
     }
 
-    fun View.setVisibilityGone(isVisible: Boolean) {
-        visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
-
-    fun View.setVisibilityInvisible(isVisible: Boolean) {
-        visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
-    }
-
     fun View.setBackgroundAction(context: Context) {
         background = ContextCompat.getDrawable(context, R.drawable.bg_corners_brown)
     }
@@ -53,5 +47,11 @@ object Utils {
             WinnerColor.BLUE.color -> background =
                 ContextCompat.getDrawable(context, R.drawable.bg_corners_blue)
         }
+    }
+
+    fun hideSoftKeyboard(activity: Activity, view: View) {
+        val inputMethodManager =
+            activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
